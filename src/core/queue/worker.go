@@ -8,26 +8,6 @@ import (
 	"core/libsvm-go"
 )
 
-// Definition of a single work
-type WorkRequest struct {
-	Feature   map[int]float64
-	Response  chan Response
-	RequestId int
-}
-
-type Response struct {
-	Result    float64
-	RequestId int
-}
-
-type Worker struct {
-	ID          int
-	Work        chan WorkRequest
-	WorkerQueue chan chan WorkRequest
-	QuitChan    chan bool
-	Model       libSvm.Model
-}
-
 // NewWorker creates, and returns a new Worker object. Its only argument
 // is a channel that the worker can add itself to whenever it is done its
 // work.
