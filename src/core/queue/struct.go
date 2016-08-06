@@ -1,5 +1,9 @@
 package queue
 
+import (
+	"core/libsvm-go"
+)
+
 type WorkRequest struct {
 	Feature   map[int]float64
 	Response  chan Response
