@@ -8,7 +8,18 @@ mDota is a project based on golang (https://golang.org) and the SVM library libs
 # How to use mDota
 At the moment the only mode to use the mDota alghoritm is via cli, run the compiled code with --help to see the list of command:
 * Analyze: this command take in input a trainset and at least 1 user and return the role for each user
-* Big data: this command is WIP but it use golang feature to permit analysis of a big number of user in a low time (our goal is to have a time at least of 500 microsecond for analysis)
+* Big data: using golang feature to permit analysis of a big number of user in a low time, 
+
+# Benchmark
+this are the benchmark result done on our machine for the bigData command:
+
+BenchmarkBigData100Request-4    	     500	   3268394 ns/op
+BenchmarkBigData1000Request-4   	     500	   4327609 ns/op
+BenchmarkBigData10000Request-4  	     300	   4128752 ns/op
+BenchmarkBigData100000Request-4 	     200	   5993765 ns/op
+BenchmarkBigData1000000Request-4	     500	 121815031 ns/op
+
+which mean the single request is done in 100 nanosecond circa, not bad in our opinion! :D
 
 
 # Our goal

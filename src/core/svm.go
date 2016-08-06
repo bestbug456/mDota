@@ -38,7 +38,7 @@ func Train() *libSvm.Model {
 }
 
 func Predict(user []float64, model *libSvm.Model) float64 {
-	x := setupData(user)
+	x := SetupData(user)
 	return model.Predict(x)
 }
 
@@ -50,6 +50,7 @@ func Setup(Traindata []TrainsetData) error {
 	Parameters = libSvm.NewParameter()
 	Parameters.Gamma = kGamma
 	Parameters.C = kC
+	Parameters.QuietMode = true
 	// L total number of sample
 	// I number of iterations
 	ProblemToAnalyze = &libSvm.Problem{L: 25, I: 0}
@@ -81,7 +82,7 @@ func Setup(Traindata []TrainsetData) error {
 	return nil
 }
 
-func setupData(dataToAnalyze []float64) map[int]float64 {
+func SetupData(dataToAnalyze []float64) map[int]float64 {
 	dataToAnalyze = normalizeData(dataToAnalyze)
 	dataMap := make(map[int]float64, 0)
 	for i := 0; i < len(dataToAnalyze); i++ {

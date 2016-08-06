@@ -26,6 +26,6 @@ var mDotaCmd = &cobra.Command{
 func PrepareMainCommand() error {
 	// add all the subcommand
 	mDotaCmd.AddCommand(command.AnalyzeCmd)
-	//mDotaCmd.AddCommand(command.BigDataCmd)
+	mDotaCmd.AddCommand(command.BigDataCmd)
 	return nil
 }
