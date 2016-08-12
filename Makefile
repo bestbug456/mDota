@@ -14,3 +14,4 @@ GOPATH := $(CURDIR)/src/_vendor:$(GOPATH)
 
 all:
 	cd ./src && $(GOINSTALL) 
+	cd ./src && mv src mDota

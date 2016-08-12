@@ -38,7 +38,7 @@ func runPrediction(prob *libSvm.Problem, param *libSvm.Parameter, model *libSvm.
 		if param.Probability && (param.SvmType == libSvm.C_SVC || param.SvmType == libSvm.NU_SVC) {
 			label, probabilityEstimate := model.PredictProbability(x)
 			predictLabel = label
-			for j := 0; j < model.NrClass(); j++ {
+			for j := 0; j < model.Nrclass(); j++ {
 				fmt.Fprintf(outputFp, " %g", probabilityEstimate[j])
 			}
 			fmt.Fprintln(outputFp, "")

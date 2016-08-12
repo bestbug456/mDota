@@ -15,6 +15,7 @@ import (
 // Internal dependences
 import (
 	"core"
+	"core/libsvm-go"
 	"core/queue"
 )
 
@@ -22,7 +23,7 @@ var BigDataCmd = &cobra.Command{
 	Use:     "bigData",
 	Short:   "Setup mdota in big data mode",
 	Long:    `Setup mdota in big data mode in order to analyze a lot of user using scaling logic`,
-	Example: "mdota bigData -u /path/to/users.json -t /path/to/train.json -w worker_number",
+	Example: "mdota bigData -u /path/to/users.json -m /path/to/model.json -w worker_number",
 }
 
 var (
@@ -31,24 +32,24 @@ var (
 
 func init() {
 	BigDataCmd.PersistentFlags().StringVarP(&UserPath, "upath", "u", "", "the path contain user to analyze")
-	BigDataCmd.PersistentFlags().StringVarP(&TrainPath, "tpath", "t", "", "the path contain the trainset")
+	BigDataCmd.PersistentFlags().StringVarP(&ModelPath, "mpath", "m", "", "the path contain the model")
 	BigDataCmd.PersistentFlags().IntVarP(&WorkerNumber, "worker", "w", 100, "the number of worker to setup")
 	BigDataCmd.RunE = bigdata
 }
 
 func bigdata(cmd *cobra.Command, args []string) error {
 	wq := make(chan queue.WorkRequest, 1000)
-	tsdata, err := genericImportFromFile(TrainPath)
+	modeldata, err := genericImportFromFile(ModelPath)
 	if err != nil {
 		return err
 	}
-	var Trainset core.ExsternalTrainset
+	var model libSvm.Model
 	// decode json trainset
-	err = json.Unmarshal(tsdata, &Trainset)
+	err = json.Unmarshal(modeldata, &model)
 	if err != nil {
 		return err
 	}
-	err = core.PrepareSVMforLargeParalelAnalysis(Trainset.Data, wq, WorkerNumber)
+	err = core.PrepareSVMforLargeParalelAnalysis(&model, wq, WorkerNumber)
 	if err != nil {
 		return err
 	}

@@ -42,21 +42,21 @@ func (model Model) PredictValues(x map[int]float64) (returnValue float64, decisi
 
 	px := MapToSnode(x)
 
-	switch model.param.SvmType {
+	switch model.Param.SvmType {
 	case ONE_CLASS, EPSILON_SVR, NU_SVR:
-		var svCoef []float64 = model.svCoef[0]
+		var svCoef []float64 = model.SvCoef[0]
 
 		var sum float64 = 0
-		for i := 0; i < model.l; i++ {
-			var idx_y int = model.sV[i]
-			py := model.svSpace[idx_y:]
-			sum += svCoef[i] * computeKernelValue(px, py, model.param)
+		for i := 0; i < model.L; i++ {
+			var idx_y int = model.SV[i]
+			py := model.SvSpace[idx_y:]
+			sum += svCoef[i] * computeKernelValue(px, py, model.Param)
 		}
-		sum -= model.rho[0]
+		sum -= model.Rho[0]
 
 		decisionValues = append(decisionValues, sum)
 
-		if model.param.SvmType == ONE_CLASS {
+		if model.Param.SvmType == ONE_CLASS {
 			if sum > 0 {
 				returnValue = 1 // return
 			} else {
@@ -69,20 +69,20 @@ func (model Model) PredictValues(x map[int]float64) (returnValue float64, decisi
 		}
 
 	case C_SVC, NU_SVC:
-		var nrClass int = model.nrClass
-		var l int = model.l
+		var nrClass int = model.Nrclass
+		var l int = model.L
 
 		kvalue := make([]float64, l)
 		for i := 0; i < l; i++ {
-			var idx_y int = model.sV[i]
-			py := model.svSpace[idx_y:]
-			kvalue[i] = computeKernelValue(px, py, model.param)
+			var idx_y int = model.SV[i]
+			py := model.SvSpace[idx_y:]
+			kvalue[i] = computeKernelValue(px, py, model.Param)
 		}
 
 		start := make([]int, nrClass)
 		start[0] = 0
 		for i := 1; i < nrClass; i++ {
-			start[i] = start[i-1] + model.nSV[i-1]
+			start[i] = start[i-1] + model.NSV[i-1]
 		}
 
 		vote := make([]int, nrClass)
@@ -98,18 +98,18 @@ func (model Model) PredictValues(x map[int]float64) (returnValue float64, decisi
 				var si int = start[i]
 				var sj int = start[j]
 
-				var ci int = model.nSV[i]
-				var cj int = model.nSV[j]
+				var ci int = model.NSV[i]
+				var cj int = model.NSV[j]
 
-				coef1 := model.svCoef[j-1]
-				coef2 := model.svCoef[i]
+				coef1 := model.SvCoef[j-1]
+				coef2 := model.SvCoef[i]
 				for k := 0; k < ci; k++ {
 					sum += coef1[si+k] * kvalue[si+k]
 				}
 				for k := 0; k < cj; k++ {
 					sum += coef2[sj+k] * kvalue[sj+k]
 				}
-				sum -= model.rho[p]
+				sum -= model.Rho[p]
 				decisionValues = append(decisionValues, sum)
 				if sum > 0 {
 					vote[i]++
@@ -127,7 +127,7 @@ func (model Model) PredictValues(x map[int]float64) (returnValue float64, decisi
 			}
 		}
 
-		returnValue = float64(model.label[maxIdx])
+		returnValue = float64(model.Label[maxIdx])
 		return // returnValue, decisionValues
 	}
 

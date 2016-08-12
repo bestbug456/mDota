@@ -9,23 +9,24 @@ import (
 // Internal dependences
 import (
 	"core"
+	"core/libsvm-go"
 	"core/queue"
 )
 
 func BenchmarkBigData100Request(b *testing.B) {
 	b.StopTimer()
 	wq := make(chan queue.WorkRequest, 100)
-	tsdata, err := genericImportFromFile("../core/data/trainingDOTA.json")
+	modeldata, err := genericImportFromFile("../../data/model.json")
 	if err != nil {
 		b.Fatalf(err.Error())
 	}
-	var Trainset core.ExsternalTrainset
+	var model libSvm.Model
 	// decode json trainset
-	err = json.Unmarshal(tsdata, &Trainset)
+	err = json.Unmarshal(modeldata, &model)
 	if err != nil {
 		b.Fatalf(err.Error())
 	}
-	err = core.PrepareSVMforLargeParalelAnalysis(Trainset.Data, wq, 100)
+	err = core.PrepareSVMforLargeParalelAnalysis(&model, wq, 100)
 	if err != nil {
 		b.Fatalf(err.Error())
 	}
@@ -64,17 +65,17 @@ func BenchmarkBigData100Request(b *testing.B) {
 func BenchmarkBigData1000Request(b *testing.B) {
 	b.StopTimer()
 	wq := make(chan queue.WorkRequest, 1000)
-	tsdata, err := genericImportFromFile("../core/data/trainingDOTA.json")
+	modeldata, err := genericImportFromFile("../../data/model.json")
 	if err != nil {
 		b.Fatalf(err.Error())
 	}
-	var Trainset core.ExsternalTrainset
+	var model libSvm.Model
 	// decode json trainset
-	err = json.Unmarshal(tsdata, &Trainset)
+	err = json.Unmarshal(modeldata, &model)
 	if err != nil {
 		b.Fatalf(err.Error())
 	}
-	err = core.PrepareSVMforLargeParalelAnalysis(Trainset.Data, wq, 1000)
+	err = core.PrepareSVMforLargeParalelAnalysis(&model, wq, 1000)
 	if err != nil {
 		b.Fatalf(err.Error())
 	}
@@ -113,17 +114,17 @@ func BenchmarkBigData1000Request(b *testing.B) {
 func BenchmarkBigData10000Request(b *testing.B) {
 	b.StopTimer()
 	wq := make(chan queue.WorkRequest, 10000)
-	tsdata, err := genericImportFromFile("../core/data/trainingDOTA.json")
+	modeldata, err := genericImportFromFile("../../data/model.json")
 	if err != nil {
 		b.Fatalf(err.Error())
 	}
-	var Trainset core.ExsternalTrainset
+	var model libSvm.Model
 	// decode json trainset
-	err = json.Unmarshal(tsdata, &Trainset)
+	err = json.Unmarshal(modeldata, &model)
 	if err != nil {
 		b.Fatalf(err.Error())
 	}
-	err = core.PrepareSVMforLargeParalelAnalysis(Trainset.Data, wq, 10000)
+	err = core.PrepareSVMforLargeParalelAnalysis(&model, wq, 10000)
 	if err != nil {
 		b.Fatalf(err.Error())
 	}
@@ -162,17 +163,17 @@ func BenchmarkBigData10000Request(b *testing.B) {
 func BenchmarkBigData100000Request(b *testing.B) {
 	b.StopTimer()
 	wq := make(chan queue.WorkRequest, 100000)
-	tsdata, err := genericImportFromFile("../core/data/trainingDOTA.json")
+	modeldata, err := genericImportFromFile("../../data/model.json")
 	if err != nil {
 		b.Fatalf(err.Error())
 	}
-	var Trainset core.ExsternalTrainset
+	var model libSvm.Model
 	// decode json trainset
-	err = json.Unmarshal(tsdata, &Trainset)
+	err = json.Unmarshal(modeldata, &model)
 	if err != nil {
 		b.Fatalf(err.Error())
 	}
-	err = core.PrepareSVMforLargeParalelAnalysis(Trainset.Data, wq, 100000)
+	err = core.PrepareSVMforLargeParalelAnalysis(&model, wq, 100000)
 	if err != nil {
 		b.Fatalf(err.Error())
 	}
@@ -210,18 +211,18 @@ func BenchmarkBigData100000Request(b *testing.B) {
 
 func BenchmarkBigData1000000Request(b *testing.B) {
 	b.StopTimer()
-	wq := make(chan queue.WorkRequest, 100000)
-	tsdata, err := genericImportFromFile("../core/data/trainingDOTA.json")
+	wq := make(chan queue.WorkRequest, 1000000)
+	modeldata, err := genericImportFromFile("../../data/model.json")
 	if err != nil {
 		b.Fatalf(err.Error())
 	}
-	var Trainset core.ExsternalTrainset
+	var model libSvm.Model
 	// decode json trainset
-	err = json.Unmarshal(tsdata, &Trainset)
+	err = json.Unmarshal(modeldata, &model)
 	if err != nil {
 		b.Fatalf(err.Error())
 	}
-	err = core.PrepareSVMforLargeParalelAnalysis(Trainset.Data, wq, 1000000)
+	err = core.PrepareSVMforLargeParalelAnalysis(&model, wq, 1000000)
 	if err != nil {
 		b.Fatalf(err.Error())
 	}

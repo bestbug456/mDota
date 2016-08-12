@@ -118,14 +118,9 @@ func standardDeviation(slice []float64, mean float64) float64 {
 	return math.Sqrt(total)
 }
 
-func PrepareSVMforLargeParalelAnalysis(trainSet []TrainsetData, WorkQueue chan queue.WorkRequest, nworkers int) error {
-	err := Setup(trainSet)
-	if err != nil {
-		return err
-	}
+func PrepareSVMforLargeParalelAnalysis(modelIn *libSvm.Model, WorkQueue chan queue.WorkRequest, nworkers int) error {
 
-	model = libSvm.NewModel(Parameters)
-	model.Train(ProblemToAnalyze)
+	model = modelIn
 	queue.StartDispatcher(nworkers, WorkQueue, model)
 	return nil
 }
