@@ -34,6 +34,7 @@ var (
 func init() {
 	AnalyzeCmd.PersistentFlags().StringVarP(&UserPath, "upath", "u", "", "the path contain user to analyze")
 	AnalyzeCmd.PersistentFlags().StringVarP(&TrainPath, "tpath", "t", "", "the path contain the trainset")
+	AnalyzeCmd.PersistentFlags().StringVarP(&ModelPath, "mpath", "m", "", "the path contain the model to be update")
 	AnalyzeCmd.RunE = analyze
 }
 
@@ -69,6 +70,16 @@ func analyze(cmd *cobra.Command, args []string) error {
 		result := core.Predict(users[i].Feature, model)
 		fmt.Printf("the system say you have %s role, congratulations!\n", kLabelResult[result])
 	}
+
+	// Update the model
+	data, err := json.Marshal(*model)
+	if err != nil {
+		return err
+	}
+	err = genericExportToFile(ModelPath, data)
+	if err != nil {
+		return err
+	}
 	return nil
 
 }
@@ -81,4 +92,14 @@ func genericImportFromFile(pathfile string) ([]byte, error) {
 		return data, err
 	}
 	return data, nil
+}
+
+// function that export data to a file
+func genericExportToFile(pathfile string, data []byte) error {
+	// read the file
+	err := ioutil.WriteFile(pathfile, data, 0777)
+	if err != nil {
+		return err
+	}
+	return nil
 }
