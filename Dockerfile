@@ -9,5 +9,5 @@ ADD ./templates /opt/templates
 ADD ./data /opt/data
 # ADD ./static /opt/static
 
-CMD ["/opt/bin/mDota"]
+CMD ["/opt/bin/mDota", "web", "-m", "/opt/data/model.json"]
 
