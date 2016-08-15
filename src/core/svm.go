@@ -20,7 +20,7 @@ import (
 )
 
 const (
-	kC     = 10
+	kC     = 100
 	kGamma = 0.1
 )
 
