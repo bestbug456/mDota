@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>mDota Analyzer</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col-sm-6 col-sm-offset-3">
+            <h1>Input your stats:</h1>
+            <form class="form-horizontal" action="/analyze" method="GET">
+                <div class="form-group">
+                    <label for="f1" class="col-sm-2 control-label">Fight</label>
+                    <div class="col-sm-10">
+                        <input class="form-control"  id="f1" name="f1" placeholder="0.5"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="f2" class="col-sm-2 control-label">Versatility</label>
+                    <div class="col-sm-10">
+                        <input class="form-control" id="f2" name="f2" placeholder="0.5"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="f3" class="col-sm-2 control-label">Push</label>
+                    <div class="col-sm-10">
+                        <input class="form-control" id="f3" name="f3" placeholder="0.5"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="f4" class="col-sm-2 control-label">Support</label>
+                    <div class="col-sm-10">
+                        <input class="form-control" id="f4" name="f4" placeholder="0.5"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="f5" class="col-sm-2 control-label">Farm</label>
+                    <div class="col-sm-10">
+                        <input class="form-control" id="f5" name="f5" placeholder="0.5"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <button type="submit" class="btn btn-default">Analyze</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12 text-center" style="margin-top: 20px;">
+            <a href="https://github.com/bestbug456/mDota">https://github.com/bestbug456/mDota</a>
+        </div>
+    </div>
+</div>
+</body>
+</html>
