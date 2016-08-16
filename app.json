@@ -1,14 +1,11 @@
 {
-  "name": "Start on Heroku: Go",
-  "description": "Go Getting Started Example App",
+  "name": "mDota",
+  "description": "mDota Analyzer",
   "keywords": [
-    "getting-started",
-    "go",
-    "sample",
-    "example"
+    "dota"
   ],
   "image": "heroku/go:1.6",
-  "mount_dir": "src/github.com/heroku/go-getting-started",
-  "website": "http://github.com/heroku/go-getting-started",
-  "repository": "http://github.com/heroku/go-getting-started"
+  "mount_dir": "src/github.com/bestbug456/mDota",
+  "website": "http://github.com/bestbug456/mDota/",
+  "repository": "http://github.com/bestbug456/mDota/"
 }

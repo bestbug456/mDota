@@ -33,19 +33,17 @@ var WebCmd = &cobra.Command{
 	Example: "mdota web -m /path/to/model.json",
 }
 
-//var (
-//	ModelPath string
-//)
+var (
+	WebModelPath string
+)
 
 func init() {
-	// RoleCmd.PersistentFlags().StringVarP(&UserPath, "upath", "u", "", "the path contain user to analyze")
-	WebCmd.PersistentFlags().StringVarP(&ModelPath, "mpath", "m", "", "the path contain the problem model")
-
+	WebCmd.PersistentFlags().StringVarP(&WebModelPath, "mpath", "m", "", "the path contain the problem model")
 	WebCmd.RunE = web
 }
 
 func web(cmd *cobra.Command, args []string) error {
-	tsdata, err := genericImportFromFile(ModelPath)
+	tsdata, err := genericImportFromFile(WebModelPath)
 	if err != nil {
 		return err
 	}
@@ -55,24 +53,6 @@ func web(cmd *cobra.Command, args []string) error {
 	if err != nil {
 		return err
 	}
-
-	//userFileData, err := genericImportFromFile(UserPath)
-	//if err != nil {
-	//	return err
-	//}
-	//var usersFile UsersFile
-	//// decode json user
-	//err = json.Unmarshal(userFileData, &usersFile)
-	//if err != nil {
-	//	return err
-	//}
-	//users := usersFile.Users
-	//for i := 0; i < len(users); i++ {
-	//	fmt.Printf("Result of analysis for the user %s: since you have %g %g %g %g %g feature ", users[i].Name, users[i].Feature[0], users[i].Feature[1], users[i].Feature[2], users[i].Feature[3], users[i].Feature[4])
-	//	result := core.Predict(users[i].Feature, &Model)
-	//	fmt.Printf("the system say you have %s role, congratulations!\n", kLabelResult[result])
-	//}
-	//return nil
 
 	fmt.Printf("Starting web server")
 

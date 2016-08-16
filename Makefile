@@ -18,9 +18,12 @@ GOPATH := $(CURDIR)
 
 GOPATH := $(CURDIR)/src/_vendor:$(GOPATH)
 
-GO_BUILD_ENV := GOOS=linux GOARCH=amd64
+GO_BUILD_ENV := GOOS=linux GOARCH=amd64 GOPATH=$(GOPATH)
 DOCKER_BUILD=$(shell pwd)/.docker_build
 DOCKER_CMD=$(DOCKER_BUILD)/mDota
+
+docker: $(DOCKER_CMD)
+	docker build -t mdota .
 
 $(DOCKER_CMD): clean
 	mkdir -p $(DOCKER_BUILD)
@@ -35,6 +38,7 @@ heroku: $(DOCKER_CMD)
 all:
 	cd ./src && $(GOINSTALL)
 	cd ./src && mv src mDota
+
 deploy:
 	cd src && $(GOARM) && mv src mDota_arm
 	cd src && $(GOLINUX86) && mv src mDota_linux_amd64
