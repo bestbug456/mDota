@@ -1,0 +1,11 @@
+{
+  "name": "mDota",
+  "description": "mDota Analyzer",
+  "keywords": [
+    "dota"
+  ],
+  "image": "heroku/go:1.6",
+  "mount_dir": "src/github.com/bestbug456/mDota",
+  "website": "http://github.com/bestbug456/mDota/",
+  "repository": "http://github.com/bestbug456/mDota/"
+}
