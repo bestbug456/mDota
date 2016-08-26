@@ -29,5 +29,6 @@ func PrepareMainCommand() error {
 	mDotaCmd.AddCommand(command.BigDataCmd)
 	mDotaCmd.AddCommand(command.RoleCmd)
 	mDotaCmd.AddCommand(command.TestCmd)
+	mDotaCmd.AddCommand(command.WebCmd)
 	return nil
 }
